@@ -1,0 +1,28 @@
+<!-- message값을 변경한 라이프 사이클 실습 예제 -->
+<html>
+<head>
+  <title>Vue Component Registration</title>
+</head>
+<body>
+  <div id="app">
+  <button>전역 컴포넌트 등록</button>
+  <my-component></my-component>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js">
+  </script>
+  <script>
+
+    //전역 컴포넌트 등록 (뷰 생성자로 컴포넌트 등록)
+    Vue.component('my-component',{ //Html에서 사용할 태그 이름을 컴포넌트 이름으로 작성.
+      template : '<div>전역 컴포넌트가 등록되었습니다!</div>' //중괄호{} 안에는 HTML태그가 실제로 화면에 그려질 때 표시될 내용(컴포넌트 내용)을 작성.
+    })
+
+    // 뷰 인스턴스 생성
+    new Vue({ //Vue생성자.
+      el: '#app'
+    });
+
+  </script>
+</body>
+</html>

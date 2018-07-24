@@ -1,0 +1,40 @@
+<!-- message값을 변경한 라이프 사이클 실습 예제 -->
+<html>
+<head>
+  <title>Vue Instance Lifecycle</title>
+</head>
+<body>
+  <div id="app">
+    {{ message }}
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js">
+  </script>
+  <script>
+    // 뷰 인스턴스 생성
+    new Vue({ //Vue생성자.
+      el: '#app',
+      data: {
+        message: 'Hello Vue.js!'
+      },
+      beforeCreate : function(){
+        console.log("beforeCreate");
+      },
+      created : function(){
+        console.log("created");
+      },
+      //el 속성에서 지정한 화면 요소에 인스턴스가 부착되고 나면 호출되는 단계로,
+      //template속성에 정의한 화면 요소(돔)에 접근할 수 있어 화면 요소를 제어하는 로직을 수행하기 좋은 단계.
+      mounted : function(){
+        console.log("mounted");
+        //기존에 정의된 data속성의 message값을 변경.
+        //mounted단계에서 데이터를 변경했기 때문에 beforeUpdate, updated 단계에서 정의한 로직이 모두 동작.
+        this.message = "Hello Vue!!!"
+      },
+      //updated 라이프 사이클 훅은 뷰 인스턴스에서 데이터 변경이 일어나 화면이 다시 그려졌을 때 호출되는 로직.
+      updated : function(){
+        console.log("updated");
+      }
+    });
+  </script>
+</body>
+</html>
