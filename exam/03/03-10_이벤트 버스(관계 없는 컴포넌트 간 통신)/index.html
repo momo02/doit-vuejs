@@ -11,6 +11,8 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
   <script>
     /** 이벤트 버스 구현하기 **/
+    // 이벤트 버스(Event Bus)는 개발자가 지정한 2개의 컴포넌트 간에 데이터를 주고받을 수 있는 방법
+    // (상위-하위 관계를 유지하고 있지 않아도 데이터를 한 컴포넌트에서 다른 컴포넌트로 전달 가능.)
 
     //이벤트 버스로 활용할 새 인스턴스 생성.
     var eventBus = new Vue();
