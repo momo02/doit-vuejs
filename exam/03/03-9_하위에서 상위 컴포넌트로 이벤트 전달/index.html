@@ -1,0 +1,64 @@
+<!-- message값을 변경한 라이프 사이클 실습 예제 -->
+<html>
+<head>
+  <title>Vue Component Registration</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 이벤트 수신 -->
+    <!-- v-on:이벤트명="상위 컴포넌트의 메서드명" -->
+    <child-component v-on:show-log="printText"></child-component>
+
+    <child-component2 v-on:change-data="changePropsData" v-bind:propsdata="message"></child-component2>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+  <script>
+    /** 하위에서 상위 컴포넌트로 이벤트 전달하기 **/
+
+    //cf.컴포넌트를 등록함과 동시에 뷰 인스턴스 자체가 상위 컴포넌트가 됨.
+    Vue.component('child-component',{
+        template : '<button v-on:click="showLog">show</button>', //버튼 요소 추가
+        methods : {
+          showLog : function(){
+              //이벤트 발생
+              this.$emit('show-log'); //괄호 안에 정의된 이벤트가 발생됨. this는 child-component(하위 컴포넌트)를 가리킴.
+          }
+        }
+    });
+
+    Vue.component('child-component2',{
+        props : ['propsdata'],
+        template : '<button v-on:click="changeData">{{ propsdata }}</button>', //버튼 요소 추가
+        methods : {
+          changeData : function(){
+              //이벤트 발생
+              this.$emit('change-data'); //괄호 안에 정의된 이벤트가 발생됨. this는 child-component(하위 컴포넌트)를 가리킴.
+          }
+        }
+    });
+
+
+    var app = new Vue({
+        el : '#app',
+        data : {
+          clickCnt : 0,
+          message : 'Hello Vue! passed from Parent Component'
+        },
+        methods : {
+          printText : function(){
+            console.log("received an event");
+          },
+          changePropsData : function(){
+              this.message = (this.clickCnt)++;
+          }
+        }
+    });
+
+    /* 이와 같은 방식으로 하위 컴포넌트에서 상위 컴포넌트로 신호를 올려보내면 상위 컴포넌트의 메서드를 실행할 수도 있고,
+       (이벤트 발생시켜 상위 컴포넌트의 메서드 호출)
+       하위 컴포넌트로 내려보내는 props의 값을 조정할 수도 있다!!! */
+
+  </script>
+</body>
+</html>

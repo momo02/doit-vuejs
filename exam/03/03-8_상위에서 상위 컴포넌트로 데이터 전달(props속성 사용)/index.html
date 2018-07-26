@@ -1,0 +1,34 @@
+<!-- message값을 변경한 라이프 사이클 실습 예제 -->
+<html>
+<head>
+  <title>Vue Component Registration</title>
+</head>
+<body>
+  <div id="app">
+    <!-- cf. 오른쪽에서 왼쪽으로 속성을 읽으면 더 수월! -->
+    <!-- v-bind:"props속성이름"="상위 컴포넌트의 데이터 속성" -->
+    <!-- 상위 컴포넌트의 message속성 값을 하위 컴포넌트의 propsdata로 전달 -->
+    <child-component v-bind:propsdata="message"></child-component>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+  <script>
+    /** 상위에서 하위 컴포넌트로 이벤트 전달하기 **/
+    // props 속성 : 상위 컴포넌트에서 하위 컴포넌트로 데이터를 전달할 때 사용하는 속성.
+
+    //cf.컴포넌트를 등록함과 동시에 뷰 인스턴스 자체가 상위 컴포넌트가 됨.
+    Vue.component('child-component',{
+        props : ['propsdata'],
+        template : '<p>{{ propsdata }}</p>'
+    });
+
+    var app = new Vue({
+        el : '#app',
+        data : {
+          message : 'Hello Vue! passed from Parent Component'
+        }
+    })
+
+  </script>
+</body>
+</html>
