@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Named View Sample</title>
+  </head>
+  <body>
+    <!-- Named View -->
+    <!-- 상위 컴포넌트 1개에 하위 컴포넌트 1개를 포함하는 구조 -->
+
+
+    <div id="app">
+      <router-link to="/">1 페이지</router-link>
+      <router-link to="/next">2 페이지</router-link>
+
+      <router-view name="header"></router-view>
+      <router-view></router-view> <!-- name이 없는 경우는 default -->
+      <router-view name="footer"></router-view>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script> <!--뷰 CDN -->
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script><!--라우터 CDN-->
+    <script>
+      //각 컴포넌트 정의
+      var Body = { template : '<div>This is Body</div>' };
+      var Header = { template : '<div>This is Header</div>' };
+      var Footer = { template : '<div>This is Footer</div>' };
+
+      var Body2 = { template : '<div>This is Body2</div>' };
+      var Header2 = { template : '<div>This is Header2</div>' };
+      var Footer2 = { template : '<div>This is Footer2</div>' };
+
+      // 뷰 라우터 정의
+      var router = new VueRouter({
+        routes : [
+          {
+            path : '/',
+            components : { //<router-view>의 name속성과 컴포넌트를 연결
+              default : Body,
+              header : Header,
+              footer : Footer
+            }
+          },
+          {
+            path : '/next',
+            components : { //<router-view>의 name속성과 컴포넌트를 연결
+              default : Body2,
+              header : Header2,
+              footer : Footer2
+            }
+          }
+        ] // 뷰 라우터에 routes를 연결
+      })
+
+      // 뷰 인스턴스에 라우터 추가
+      var app = new Vue({
+        router
+      }).$mount('#app'); // $mount()는 el속성과 같이 인스턴스를 화면에 붙여주는 역할.
+      //인스턴스를 생성할 때 el속성을 넣지 않았더라도 생성하고 나서 $mount()를 이용하면 강제로 인스턴스를 화면에 붙일 수 있다.
+
+
+      // 네임드 뷰를 활용하면 특정 페이지로 이동했을 때
+      // 해당 URL에 맞추어 여러 개의 컴포넌트를 한 번에 표시할 수 있다.
+    </script>
+  </body>
+</html>
