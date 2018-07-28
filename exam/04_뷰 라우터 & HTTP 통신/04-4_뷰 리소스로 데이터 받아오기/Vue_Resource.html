@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Resource</title>
+  </head>
+  <body>
+    <!-- 뷰에서는 ajax를 지원하기 위한 라이브러리를 제공한다.
+         그 중 대표적인 것이 뷰 리소스와 액시오스(axios) 이다. -->
+
+    <div id="app">
+      <button v-on:click='getData'>프레임워크 목록 가져오기</button>
+      <button v-on:click='claerData'>프레임워크 목록 지우기</button>
+      <div v-for="(value, key) in object">
+        {{ key }}: {{ value }}
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script> <!--뷰 CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script><!--뷰 리소스 CDN-->
+    <script>
+      new Vue({
+        el : '#app'
+        ,data : {
+          object : {}
+        }
+        ,methods : {
+          getData : function(){
+            //this.$http.get()은 HTTP GET요청을 서버에 보내고 특정 데이터를 받아온다.
+            this.$http.get('https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json')
+            .then(function(response){
+              console.log(response);
+              console.log(JSON.parse(response.data)) //JSON문자열을 자바스크립트 객체로 변환
+              this.object = JSON.parse(response.data);
+            })
+          }
+          ,claerData : function(){
+            this.object = {};
+          }
+        }
+      })
+      </script>
+  </body>
+</html>
