@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-83">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue - methods vs computed</title>
+  </head>
+  <body>
+
+<!--
+[computed속성과 methods속성의 차이점]
+
+    # watch 속성
+    - 데이터 변화를 감지하여 자동으로 특정 로직을 수행. computed속성과 유사하지만
+    computed속성은 내장 API를 활용한 간단한 연산 정도로 적합한 반면, watch속성은 데이터 호출과 같이
+    시간이 상대적으로 더 많이 소모되는 비동기 처리에 적합.
+-->
+
+    <!-- 인풋박스의 입력값을 v-model디렉티브로 연결하여 입력 값에 변화가 있을 때 마다
+         watch속성에서 변화된 값을 로그로 출력.  -->
+    <!-- v-model 디렉티브 : form에서 주로 사용되는 속성. 폼에 입력한 값을 뷰 인스턴스의 데이터와 즉시 동기화.
+                           <input>,<select>,<textarea>태그에만 사용 가능-->
+    <div id="app">
+      <input v-model="message" />
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script> <!--뷰 CDN-->
+    <script>
+      new Vue({
+        el : '#app'
+        ,data : {
+          message : 'Hello Vue.js!'
+        }
+        ,watch : {
+          message : function(data){
+            console.log("message의 값이 바뀝니다. : ", data);
+          }
+        }
+      })
+      </script>
+  </body>
+</html>
