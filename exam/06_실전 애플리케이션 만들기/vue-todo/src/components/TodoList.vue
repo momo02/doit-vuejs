@@ -1,10 +1,12 @@
 <template lang="html">
   <section>
-      <ul>
-        <!-- v-for 디렉티브는 뷰 데이터 속성 todoItems의 내용물 개수(todoItems 배열 요소 수)만큼 반복해서 <li>태그를 출력하는 디렉티브 -->
-        </li>
-        <!-- App컴포넌트의 todoItems 데이터 개수만틈 목록 아이템을 생성 -->
-        <li v-for="(todoItem,index) in propsdata" class="shadow"> <!-- v-for디렉티브로 반복한 요소는 모두 뷰애서 내부적으로 인덱스를 부여 -->
+    <!-- <transition-group>은 목록에 애니메이션을 추가할 때 사용되는 태그.
+         tag속성에 애니메이션이 들어갈 HTML태그 이름을 지정.  -->
+      <transition-group name="list" tag="ul">
+        <!-- li 태그에 v-bind:key를 간략하게 표현한 :key를 추가.
+        목록에 애니메이션을 적용하려면 <transition-group>안의 대상 태그에 :key속성을 꼭 지정해야 하기 때문.
+        key속성에는 유일하게 구분되는 값을 넣어야 함. -->
+        <li v-for="(todoItem,index) in propsdata" :key="todoItem" class="shadow"> <!-- v-for디렉티브로 반복한 요소는 모두 뷰애서 내부적으로 인덱스를 부여 -->
           <i class="checkBtn fa fa-check" aria-hidden="true"></i>
           {{ todoItem }}
           <!-- @click은 v-on:click과 동일하게 동작 -->
@@ -13,7 +15,7 @@
               <i class="fa fa-trash" aria-hidden="true"></i>
           </span>
         </li>
-      </ul>
+      </transition-group>
   </section>
 </template>
 
@@ -53,5 +55,20 @@ export default {
   .removeBtn {
     margin-left: auto;
     color: #de4343;
+  }
+  /* <transition-group> 태그에 적용할 CSS속성을 추가 */
+  .lzist-item {
+    display : inline-block;
+    margin-right : 10px;
+  }
+  .list-move {
+    transition : transform 1s;
+  }
+  .list-enter-active, .list-leave-active {
+    transition : all 1s;
+  }
+  .list-enter, .list-leave-to {
+    opacity : 0;
+    transform : translateY(30px);
   }
 </style>
