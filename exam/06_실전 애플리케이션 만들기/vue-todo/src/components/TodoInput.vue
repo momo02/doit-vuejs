@@ -21,13 +21,12 @@ export default {
     addTodo() {
       //console.log(this.newTodoItem); //여기서 this는 해당 컴포넌트를 가리킴
 
-      //입력받은 텍스트를 로컬 스토리지에 저장.
-      //setItem은 로컬 스토리지에 데이터를 추가하는 API. API형식은 키,값 형태
-      //저장 기능을 최대한 단순하게 하기위해 키,값 모두 입력받은 텍스트로 지정.
       if(this.newTodoItem !== ""){ //인풋 박스의 입력 값이 있을때만 저장
-        var value = this.newTodoItem && this.newTodoItem.trim(); //인풋 박스에 입력된 텍스트의 앞뒤 공백 문자열 제거
-        localStorage.setItem(value,value);
-        this.clearInput(); //인풋 박스의 입력 값을 초기화
+         var value = this.newTodoItem && this.newTodoItem.trim(); //인풋 박스에 입력된 텍스트의 앞뒤 공백 문자열 제거
+//         localStorage.setItem(value,value);
+         //TodoInput컴포넌트에서 App컴포넌트로 신호(이벤트)를 보내 App컴포넌트의 addTodo()메서드를 실행.
+         this.$emit('addTodo',value);
+         this.clearInput(); //인풋 박스의 입력 값을 초기화
       }
     },
     clearInput() {

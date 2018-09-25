@@ -8,7 +8,8 @@
 export default {
   methods : {
     clearTodo() {
-      localStorage.clear(); //로컬 스토리지 데이터를 모두 삭제
+      //Claer All버튼을 클릭하면 removeAll이벤트를 발생시켜 상위 컴포넌트(App.vue)로 전달.
+      this.$emit('removeAll');
     }
   }
 }
